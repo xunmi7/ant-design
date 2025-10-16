@@ -20,7 +20,8 @@ const excludes = [
 
 async function execute() {
   let { all } = await git.log();
-  all = remove(all, ({ author_email: email }) => {
+  const mutableLogs = [...all];
+  all = remove(mutableLogs, ({ author_email: email }) => {
     for (let i = 0; i < excludes.length; i++) {
       const item = excludes[i];
       if (email.includes(item)) {
